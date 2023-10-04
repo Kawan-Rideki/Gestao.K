@@ -68,7 +68,7 @@ begin
   qItem.Close;
   qItem.SQL.Text := 'select * from ' + TableName + ' where ' + IdFieldName + ' = :' + IdFieldName;
 
-  Mapping.Items[IdFieldName].GetValue;
+  IdValue := Mapping.Items[IdFieldName].GetValue;
 
   qItem.ParamByName(IdFieldName).AsInteger := IdValue;
 
@@ -132,7 +132,7 @@ begin
   qItem.Close;
   qItem.SQL.Text := 'select * from ' + TableName + ' where ' + IdFieldName + ' = :' + IdFieldName;
 
-  Mapping.Items[IdFieldName].GetValue;
+  IdValue := Mapping.Items[IdFieldName].GetValue;
 
   qItem.ParamByName(IdFieldName).AsInteger := IdValue;
 
@@ -149,7 +149,14 @@ begin
   begin
     if (Item.Key <> IdFieldName) then
     begin
-    Item.Value.SetValue(qItem.FieldByName(Item.Value.FieldName).Value);
+     if (qItem.FieldByName(Item.Value.FieldName).IsNull) then
+     begin
+       Item.Value.Clear;
+     end
+     else
+     begin
+     Item.Value.SetValue(qItem.FieldByName(Item.Value.FieldName).Value);
+      end;
     end;
   end;
 

@@ -12,19 +12,19 @@ uses
 
 type
   TfrmProdRegisterOld = class(TForm)
-    Label1: TLabel;
-    Label2: TLabel;
     Panel1: TPanel;
     btnSave: TButton;
     btnNew: TButton;
+    FDQuery1: TFDQuery;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
     edtIdProd: TEdit;
     edtNome: TEdit;
-    FDQuery1: TFDQuery;
-    Label3: TLabel;
     edtVlCst: TMaskEdit;
-    Label4: TLabel;
     edtVlVnd: TMaskEdit;
-    Label5: TLabel;
     edtVlEstq: TMaskEdit;
     procedure btnSaveClick(Sender: TObject);
     procedure btnNewClick(Sender: TObject);

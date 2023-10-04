@@ -12,6 +12,7 @@ uses
 
 type
   TfrmProdManager = class(TfrmManager)
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -23,6 +24,23 @@ var
 
 implementation
 
+uses UfrmProdRegister;
+
 {$R *.dfm}
+
+procedure TfrmProdManager.FormCreate(Sender: TObject);
+begin
+  inherited;
+  RegisterClass := TfrmProdRegister;
+  TableName     := 'tb_prod';
+  FindFieldName := 'descr';
+
+  AddColumn('id_prod', 'Código', 100);
+  AddColumn('descr', 'Descrição', 300);
+  AddColumn('vl_cst', 'Valor de Custo', 200);
+  AddColumn('vl_vnd', 'Valor de Venda', 200);
+  AddColumn('vl_estq', 'Valor de Estoque', 200);
+
+end;
 
 end.

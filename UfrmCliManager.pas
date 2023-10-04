@@ -38,6 +38,8 @@ begin
 
   AddColumn('id_cli', 'Código', 100);
   AddColumn('nome', 'Nome', 300);
+  AddColumn('cpf_cnpj', 'CPF/CNPJ', 100);
+  AddColumn('fone', 'Fone', 100);
 end;
 
 end.

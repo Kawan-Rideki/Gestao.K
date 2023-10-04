@@ -25,7 +25,5 @@ begin
   Application.MainFormOnTaskbar := True;
   TStyleManager.TrySetStyle('Aqua Light Slate');
   Application.CreateForm(TFrmMain, FrmMain);
-  Application.CreateForm(TfrmProdManager, frmProdManager);
-  Application.CreateForm(TfrmProdRegister, frmProdRegister);
   Application.Run;
 end.
