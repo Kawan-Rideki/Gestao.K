@@ -8,7 +8,7 @@ uses
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, Vcl.StdCtrls, Vcl.ExtCtrls,
-  Vcl.Mask;
+  Vcl.Mask, UAppLibrary;
 
 type
   TfrmProdRegister = class(TfrmRegister)
@@ -18,7 +18,7 @@ type
     Label4: TLabel;
     Label5: TLabel;
     edtIdProd: TEdit;
-    edtNome: TEdit;
+    edtDescr: TEdit;
     edtVlCst: TMaskEdit;
     edtVlVnd: TMaskEdit;
     edtVlEstq: TMaskEdit;
@@ -42,7 +42,11 @@ begin
   TableName := 'tb_prod';
   IdFieldname := 'id_prod';
 
-
+  AddMapping(TNumericFieldExtender.Create('id_prod', edtIdProd, 0));
+  AddMapping(TFieldExtender.Create('descr', edtDescr));
+  AddMapping(TNumericFieldExtender.Create('vl_cst', edtVlCst, 2));
+  AddMapping(TNumericFieldExtender.Create('vl_vnd', edtVlVnd, 2));
+  AddMapping(TNumericFieldExtender.Create('vl_estq', edtVlEstq, 2));
 end;
 
 end.

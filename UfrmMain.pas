@@ -42,7 +42,7 @@ implementation
 
 {$R *.dfm}
 
-uses UfrmCliManager, UfrmProdManagerOld;
+uses UfrmCliManager, UfrmProdManager;
 
 procedure TfrmMain.cboStyleChange(Sender: TObject);
 var
@@ -95,7 +95,7 @@ end;
 
 procedure TfrmMain.Produtos1Click(Sender: TObject);
 begin
-  Application.CreateForm(TfrmProdManagerOld, frmProdManagerOld);
+  Application.CreateForm(TfrmProdManager, frmProdManager);
 end;
 
 end.

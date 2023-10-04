@@ -44,7 +44,7 @@ inherited frmProdRegister: TfrmProdRegister
     TabOrder = 1
     Text = 'edtIdProd'
   end
-  object edtNome: TEdit [7]
+  object edtDescr: TEdit [7]
     Left = 16
     Top = 133
     Width = 306
