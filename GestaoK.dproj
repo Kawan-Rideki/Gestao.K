@@ -156,6 +156,86 @@
             <Form>frmProdRegister</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="UfrmVndManager.pas">
+            <Form>frmVndManager</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UfrmVndRegister.pas">
+            <Form>frmVndRegister</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UfrmVndItemRegister.pas">
+            <Form>frmVndItemRegister</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UfrmCatManager.pas">
+            <Form>frmCatManager</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UfrmCatRegister.pas">
+            <Form>frmCatRegister</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UfrmMntEstqManager.pas">
+            <Form>frmMntEstqManager</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UfrmMntEstqRegister.pas">
+            <Form>frmMntEstqRegister</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UfrmMntEstqItemRegister.pas">
+            <Form>frmMntEstqItemRegister</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UfrmCliRel.pas">
+            <Form>frmCliRel</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UfrmVndRel.pas">
+            <Form>frmVndRel</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UfrmFilRel.pas">
+            <Form>frmFilRel</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UfrmRel.pas">
+            <Form>frmRel</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UfrmVndItemRel.pas">
+            <Form>frmVndItemRel</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UfrmFilItemrel.pas">
+            <Form>frmFilItemRel</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UfrmFinManager.pas">
+            <Form>frmFinManager</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UfrmFinRegister.pas">
+            <Form>frmFinRegister</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UfrmFilFin.pas">
+            <Form>frmFilFin</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UfrmFinRel.pas">
+            <Form>frmFinRel</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UfrmVndGrpRel.pas">
+            <Form>frmVndGrpRel</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="UfrmFinGrpRel.pas">
+            <Form>frmFinGrpRel</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

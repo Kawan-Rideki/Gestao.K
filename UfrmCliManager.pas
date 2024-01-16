@@ -12,7 +12,9 @@ uses
 
 type
   TfrmCliManager = class(TfrmManager)
+    Button1: TButton;
     procedure FormCreate(Sender: TObject);
+    procedure btnRelClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -24,9 +26,17 @@ var
 
 implementation
 
-uses UfrmCliRegister;
+uses UfrmCliRegister, UfrmCliRel;
 
 {$R *.dfm}
+
+procedure TfrmCliManager.btnRelClick(Sender: TObject);
+begin
+  frmCliRel := TfrmCliRel.Create( self );
+
+  frmCliRel.RelCli.Preview();
+end;
+
 
 procedure TfrmCliManager.FormCreate(Sender: TObject);
 begin

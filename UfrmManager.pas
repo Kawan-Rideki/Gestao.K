@@ -23,12 +23,15 @@ type
     dbgitem: TDBGrid;
     qItem: TFDQuery;
     dsItem: TDataSource;
+    pnlSel: TPanel;
+    btnSel: TButton;
     procedure FormCreate(Sender: TObject);
     procedure btnInsertClick(Sender: TObject);
-    procedure btnFindClick(Sender: TObject);
+    procedure btnFindClick(Sender: TObject); virtual;
     procedure FormShow(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
+    procedure btnSelClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -99,6 +102,13 @@ begin
   RegisterClass.Create(Application);
 end;
 
+procedure TfrmManager.btnSelClick(Sender: TObject);
+begin
+  inherited;
+
+  ModalResult :=  mrOk;
+end;
+
 procedure TfrmManager.FormCreate(Sender: TObject);
 begin
   inherited;
@@ -113,6 +123,15 @@ begin
   inherited;
 
   btnFindClick(btnFind);
+
+  if (FormStyle = TFormStyle.fsMDIChild) then
+  begin
+    pnlSel.Visible := False;
+  end
+  else
+  begin
+    pnlSel.Visible := True;
+  end;
 end;
 
 end.

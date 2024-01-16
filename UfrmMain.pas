@@ -24,11 +24,25 @@ type
     FDConnection1: TFDConnection;
     Panel1: TPanel;
     cboStyle: TComboBox;
+    Categorias1: TMenuItem;
+    ManutenodeEstoque1: TMenuItem;
+    FDConnection2: TFDConnection;
+    Relatrio1: TMenuItem;
+    Cliente1: TMenuItem;
+    Vendas2: TMenuItem;
+    Financeiro1: TMenuItem;
     procedure Fechar1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Clientes1Click(Sender: TObject);
     procedure cboStyleChange(Sender: TObject);
     procedure Produtos1Click(Sender: TObject);
+    procedure Vendas1Click(Sender: TObject);
+    procedure Categorias1Click(Sender: TObject);
+    procedure ManutenodeEstoque1Click(Sender: TObject);
+    procedure Cliente1Click(Sender: TObject);
+    procedure Vendas2Click(Sender: TObject);
+    procedure Financeiro1Click(Sender: TObject);
+
   private
     { Private declarations }
   public
@@ -42,7 +56,14 @@ implementation
 
 {$R *.dfm}
 
-uses UfrmCliManager, UfrmProdManager;
+uses
+  UfrmCliManager, UfrmProdManager,  UfrmVndManager, UfrmCatManager, UfrmMntEstqManager, UfrmCliRel, UfrmVndRel, UfrmFilRel, UfrmFinManager;
+
+procedure TfrmMain.Categorias1Click(Sender: TObject);
+begin
+  Application.CreateForm(TfrmCatManager, FrmCatManager);
+  frmCatManager.FormStyle := TFormStyle.fsMDIChild;
+end;
 
 procedure TfrmMain.cboStyleChange(Sender: TObject);
 var
@@ -55,14 +76,28 @@ begin
   Ini.Free;
 end;
 
+procedure TfrmMain.Cliente1Click(Sender: TObject);
+begin
+  frmCliRel := TfrmCliRel.Create( self );
+
+  frmCliRel.RelCli.Preview();
+end;
+
 procedure TfrmMain.Clientes1Click(Sender: TObject);
 begin
   Application.CreateForm(TfrmCliManager, frmCliManager);
+  frmCliManager.FormStyle := TFormStyle.fsMDIChild;
 end;
 
 procedure TfrmMain.Fechar1Click(Sender: TObject);
 begin
   Application.Terminate;
+end;
+
+procedure TfrmMain.Financeiro1Click(Sender: TObject);
+begin
+  Application.CreateForm(TfrmFinManager, frmFinManager);
+  frmFinManager.FormStyle := TFormStyle.fsMDIChild;
 end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
@@ -93,9 +128,32 @@ begin
 
 end;
 
+procedure TfrmMain.ManutenodeEstoque1Click(Sender: TObject);
+begin
+  Application.CreateForm(TfrmMntEstqManager, frmMntEstqManager);
+  frmMntEstqManager.FormStyle := TFormStyle.fsMDIChild;
+end;
+
 procedure TfrmMain.Produtos1Click(Sender: TObject);
 begin
   Application.CreateForm(TfrmProdManager, frmProdManager);
+  frmProdManager.FormStyle := TFormStyle.fsMDIChild;
+end;
+
+procedure TfrmMain.Vendas1Click(Sender: TObject);
+begin
+  Application.CreateForm(TfrmVndmanager, frmVndmanager);
+  frmVndManager.FormStyle := TFormStyle.fsMDIChild;
+end;
+
+procedure TfrmMain.Vendas2Click(Sender: TObject);
+begin
+  Application.CreateForm(TfrmFilRel, frmFilRel);
+  frmFilRel.FormStyle := TFormStyle.fsMDIChild;
+
+//  frmVndRel := TfrmVndRel.Create( self );
+//
+//  frmVndRel.RelVnd.Preview();
 end;
 
 end.

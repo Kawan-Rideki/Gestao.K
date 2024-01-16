@@ -2,8 +2,8 @@ object frmCliManagerOld: TfrmCliManagerOld
   Left = 0
   Top = 0
   Caption = 'Clientes'
-  ClientHeight = 441
-  ClientWidth = 624
+  ClientHeight = 458
+  ClientWidth = 630
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,13 +18,14 @@ object frmCliManagerOld: TfrmCliManagerOld
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 624
+    Width = 630
     Height = 41
     Align = alTop
     BevelOuter = bvNone
     Color = clWhite
     ParentBackground = False
     TabOrder = 0
+    ExplicitWidth = 624
     object btnInsert: TButton
       Left = 5
       Top = 4
@@ -56,17 +57,19 @@ object frmCliManagerOld: TfrmCliManagerOld
   object Panel2: TPanel
     Left = 0
     Top = 113
-    Width = 624
-    Height = 328
+    Width = 630
+    Height = 345
     Align = alClient
     BevelOuter = bvNone
     BorderWidth = 5
     TabOrder = 1
+    ExplicitWidth = 624
+    ExplicitHeight = 328
     object DBGrid1: TDBGrid
       Left = 5
       Top = 5
-      Width = 614
-      Height = 318
+      Width = 620
+      Height = 335
       Align = alClient
       Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
       TabOrder = 0
@@ -108,11 +111,12 @@ object frmCliManagerOld: TfrmCliManagerOld
   object Panel3: TPanel
     Left = 0
     Top = 41
-    Width = 624
+    Width = 630
     Height = 72
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 2
+    ExplicitWidth = 624
     object Label1: TLabel
       Left = 16
       Top = 8

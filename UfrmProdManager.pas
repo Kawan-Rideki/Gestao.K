@@ -13,6 +13,7 @@ uses
 type
   TfrmProdManager = class(TfrmManager)
     procedure FormCreate(Sender: TObject);
+    procedure btnFindClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -28,6 +29,28 @@ uses UfrmProdRegister;
 
 {$R *.dfm}
 
+procedure TfrmProdManager.btnFindClick(Sender: TObject);
+begin
+ // inherited;
+  qItem.Close;
+  with qItem.Sql do
+  begin
+    Clear;
+    Add('select');
+    Add('     tb_prod.*,');
+    Add('     tb_cat.descr as tb_cat__descr');
+    Add('from tb_prod');
+    Add('left outer join tb_cat on');
+    Add('     tb_prod.id_cat = tb_cat.id_cat');
+    Add('where');
+    Add('     unaccent(tb_prod.descr) ilike unaccent(:descr)');
+    Add('order by');
+    Add('     tb_prod.descr');
+  end;
+  qItem.ParamByName('descr').AsString := '%' + edtPesq.Text + '%';
+  qItem.Open;
+end;
+
 procedure TfrmProdManager.FormCreate(Sender: TObject);
 begin
   inherited;
@@ -40,6 +63,7 @@ begin
   AddColumn('vl_cst', 'Valor de Custo', 200);
   AddColumn('vl_vnd', 'Valor de Venda', 200);
   AddColumn('vl_estq', 'Valor de Estoque', 200);
+  AddColumn('tb_cat__descr', 'Categoria', 300);
 
 end;
 

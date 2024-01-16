@@ -1,9 +1,9 @@
 inherited frmManager: TfrmManager
   Caption = 'frmManager'
-  FormStyle = fsMDIChild
-  Visible = True
+  ClientHeight = 451
   OnCreate = FormCreate
   OnShow = FormShow
+  ExplicitHeight = 490
   TextHeight = 15
   object Panel1: TPanel
     Left = 0
@@ -79,7 +79,7 @@ inherited frmManager: TfrmManager
     Left = 0
     Top = 113
     Width = 624
-    Height = 328
+    Height = 297
     Align = alClient
     DataSource = dsItem
     Options = [dgTitles, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -89,6 +89,26 @@ inherited frmManager: TfrmManager
     TitleFont.Height = -12
     TitleFont.Name = 'Segoe UI'
     TitleFont.Style = []
+  end
+  object pnlSel: TPanel
+    Left = 0
+    Top = 410
+    Width = 624
+    Height = 41
+    Align = alBottom
+    BevelOuter = bvNone
+    TabOrder = 3
+    Visible = False
+    ExplicitTop = 416
+    object btnSel: TButton
+      Left = 8
+      Top = 6
+      Width = 193
+      Height = 35
+      Caption = 'Selecionar'
+      TabOrder = 0
+      OnClick = btnSelClick
+    end
   end
   object qItem: TFDQuery
     Left = 128

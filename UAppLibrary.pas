@@ -8,7 +8,7 @@ uses
   Vcl.Grids, Vcl.DBGrids, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client, Vcl.Mask, StrUtils;
+  FireDAC.Comp.Client, Vcl.Mask, StrUtils, Vcl.ComCtrls;
 
 type
   TFieldExtender = class(TComponent)
@@ -28,6 +28,7 @@ type
 
   TNumericFieldExtender = class(TFieldExtender)
   protected
+    ControlExit: TNotifyEvent;
     procedure Apply; override;
     procedure OnKeyPress(ASender: TObject; var AKey: Char);
     procedure OnEnter(ASender: TObject);
@@ -44,10 +45,14 @@ type
     procedure Clear; override;
   end;
 
-  //TDateFieldExtender = class(TFieldExtender)
-    //private
-    //public
-  //end;
+  TDateFieldExtender = class(TFieldExtender)
+    protected
+
+    public
+        function GetValue: Variant; override;
+    function SetValue(AValue: Variant): TFieldExtender; override;
+    procedure Clear; override;
+  end;
 
 function TextToFloat(Avalue: String): Double;
 
@@ -59,7 +64,10 @@ implementation
 
 procedure TFieldExtender.Apply;
 begin
-
+  if (Control is TComboBox) then
+    begin
+      TComboBox(Control).Style := csDropDownList;
+    end;
 end;
 
 procedure TFieldExtender.Clear;
@@ -67,6 +75,10 @@ begin
   if (Control is TCustomEdit) then
   begin
     TCustomEdit(Control).Text := '';
+  end
+  else if (Control is TComboBox) then
+  begin
+    TComboBox(Control).ItemIndex := 0;
   end;
 end;
 
@@ -89,14 +101,29 @@ begin
     if (Control is TCustomEdit) then
     begin
       Result := TCustomEdit(Control).Text;
+    end
+    else if (Control is TComboBox) then
+    begin
+      Result := TComboBox(Control).Text;
     end;
 end;
 
 function TFieldExtender.SetValue(AValue: Variant): TFieldExtender;
+var
+  Index: Integer;
 begin
   if (Control is TCustomEdit) then
   begin
     TCustomEdit(Control).Text := AValue;
+  end
+   else if (Control is TComboBox) then
+  begin
+    Index := TComboBox(Control).Items.IndexOf(AValue);
+
+    if (Index >= 0) then
+    begin
+      TComboBox(Control).ItemIndex := Index;
+    end;
   end;
 
   Result := Self;
@@ -118,6 +145,11 @@ begin
 
   if (Control is TMaskEdit) then
   begin
+    if (Assigned(TMaskEdit(Control).OnExit)) then
+    begin
+     ControlExit := TMaskEdit(Control).OnExit;
+    end;
+
     TMaskEdit(Control).OnKeyPress := OnKeyPress;
     TMaskEdit(Control).OnEnter    := OnEnter;
     TMaskEdit(Control).OnExit     := OnExit;
@@ -127,6 +159,11 @@ begin
   end
   else if (Control is TEdit) then
   begin
+   if (Assigned(TEdit(Control).OnExit)) then
+    begin
+     ControlExit := TEdit(Control).OnExit;
+    end;
+
     TEdit(Control).OnKeyPress := OnKeyPress;
     TEdit(Control).OnEnter    := OnEnter;
     TEdit(Control).OnExit     := OnExit;
@@ -142,13 +179,17 @@ procedure TNumericFieldExtender.Clear;
 begin
   inherited;
 
-  OnExit(Control);
+  if (Control is TCustomEdit) then
+  begin
+    TCustomEdit(Control).Text := FormatFloat(GetMask, 0);
+  end;
 end;
 
 constructor TNumericFieldExtender.Create(AFieldName: String; AControl: TWinControl;
   ADecimals: Integer);
 begin
-  Decimals := ADecimals;
+  Decimals    := ADecimals;
+  ControlExit := Nil;
 
   inherited Create(AFieldName, AControl);
 end;
@@ -194,6 +235,11 @@ begin
   begin
     Value := StrToFloatDef(TMaskEdit(Control).Text, 0);
     TCustomEdit(Control).Text := FormatFloat(GetMask, Value);
+  end;
+
+  if (Assigned(ControlExit)) then
+  begin
+    ControlExit(ASender);
   end;
 end;
 
@@ -245,4 +291,24 @@ begin
  AValue := Trim(AnsiReplaceStr(AValue, FormatSettings.ThousandSeparator, ''));
  Result := StrToFloat(AValue);
 end;
+{ TDateFieldExtender }
+
+procedure TDateFieldExtender.Clear;
+begin
+  TDateTimePicker(Control).Date := Now;
+end;
+
+function TDateFieldExtender.GetValue: Variant;
+begin
+  Result := TDateTimePicker(Control).Date;
+end;
+
+function TDateFieldExtender.SetValue(AValue: Variant): TFieldExtender;
+begin
+  if (Avalue <> VarNull) then
+  begin
+    TDateTimePicker(Control).Date := AValue;;
+  end;
+end;
+
 end.

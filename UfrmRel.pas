@@ -1,4 +1,4 @@
-unit UfrmRegister;
+unit UfrmRel;
 
 interface
 
@@ -11,31 +11,25 @@ uses
   FireDAC.Comp.Client, Vcl.Mask;
 
 type
-  TfrmRegister = class(TfrmDefault)
-    Panel1: TPanel;
-    btnSave: TButton;
-    btnNew: TButton;
+  TfrmRel = class(TForm)
     qItem: TFDQuery;
-    procedure FormCreate(Sender: TObject);
-    procedure FormDestroy(Sender: TObject);
-    procedure btnNewClick(Sender: TObject);
-    procedure FormShow(Sender: TObject);
-    procedure btnSaveClick(Sender: TObject);
+  procedure FormCreate(Sender: TObject);
+  procedure FormShow(Sender: TObject);
+  procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
   public
-
     Mapping: TDictionary<String, TFieldExtender>;
     TableName: String;
     IdFieldname: String;
     procedure AddMapping(AFieldExtender: TFieldExtender);
-    procedure IdOnExit(ASender: TObject);
     procedure AfterSave; virtual;
     procedure AfterLoad; virtual;
+    procedure IdOnExit(ASender: TObject);
   end;
 
 var
-  frmRegister: TfrmRegister;
+  frmRel: TfrmRel;
 
 implementation
 
@@ -44,110 +38,37 @@ uses
 
 {$R *.dfm}
 
-{ TfrmRegister }
+{ TForm2 }
 
-procedure TfrmRegister.AddMapping(AFieldExtender: TFieldExtender);
+procedure TfrmRel.AddMapping(AFieldExtender: TFieldExtender);
 begin
   Mapping.Add(AFieldExtender.FieldName, AFieldExtender)
 end;
 
-procedure TfrmRegister.AfterLoad;
+procedure TfrmRel.AfterLoad;
 begin
 
 end;
 
-procedure TfrmRegister.AfterSave;
+procedure TfrmRel.AfterSave;
 begin
 
 end;
 
-procedure TfrmRegister.btnNewClick(Sender: TObject);
+procedure TfrmRel.FormCreate(Sender: TObject);
 begin
-  inherited;
-
-  for var Item in Mapping do
-    begin
-      Item.Value.Clear;
-    end;
-end;
-
-procedure TfrmRegister.btnSaveClick(Sender: TObject);
-var
-  IdValue: Integer;
-begin
-  inherited;
-
-  qItem.Close;
-  qItem.SQL.Clear;
-  qItem.SQL.Add('select * from ' + TableName + ' where ' + IdFieldName);
-
-  IdValue := Mapping.Items[IdFieldName].GetValue;
-
-  if (IdValue = 0) then
-  begin
-      qItem.SQL.Add(' is null');
-  end
-  else
-  begin
-    qItem.SQL.Add(' = :' + IdFieldName);
-    qItem.ParamByName(IdFieldName).AsInteger := IdValue;
-  end;
-
-  qItem.Open;
-
-  qItem.FieldByName(IdFieldName).AutoGenerateValue := arAutoInc;
-
-  if (qItem.IsEmpty) then
-  begin
-   qItem.Append;
-  end
-  else
-  begin
-    qItem.Edit;
-  end;
-
-  for var Item in Mapping do
-  begin
-    if (IdValue = 0) and (Item.Value.FieldName = IdFieldName) then
-    begin
-  //  qitem.FieldByName(Item.Value.FieldName).Clear;
-    end
-    else
-    begin
-     qItem.FieldByName(Item.Value.FieldName).Value := Item.Value.GetValue;
-    end;
-
-  end;
-  qItem.Post;
-
-  Mapping.Items[idFieldName].SetValue(qItem.FieldByName(IdFieldName).Value);
-
-  AfterSave;
-
-  ShowMessage('Registro salvo com sucesso');
-
-end;
-
-procedure TfrmRegister.FormCreate(Sender: TObject);
-begin
-  inherited;
-
   qItem.Connection := frmMain.FDConnection1;
 
   Mapping := TDictionary<String, TFieldExtender>.Create;
 end;
 
-procedure TfrmRegister.FormDestroy(Sender: TObject);
+procedure TfrmRel.FormDestroy(Sender: TObject);
 begin
-  inherited;
   Mapping.Free;
 end;
 
-procedure TfrmRegister.FormShow(Sender: TObject);
+procedure TfrmRel.FormShow(Sender: TObject);
 begin
-  inherited;
-  btnNewClick(btnNew);
-
   if (Mapping.Items[IdFieldName].Control is TEdit) then
   begin
     TEdit(Mapping.Items[IdFieldName].Control).OnExit := IdOnExit;
@@ -158,7 +79,7 @@ begin
   end;
 end;
 
-procedure TfrmRegister.IdOnExit(ASender: TObject);
+procedure TfrmRel.IdOnExit(ASender: TObject);
 var
   IdValue: Integer;
 begin
@@ -197,5 +118,7 @@ begin
 
   AfterLoad;
 end;
+
+
 
 end.
